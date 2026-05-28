@@ -6,8 +6,9 @@
 
   Theme sync behavior:
     - giscus loads with `lightTheme` initially.
-    - On iframe load (and whenever PaperMod toggles `body.dark`), we postMessage
-      the matching theme (`lightTheme` or `darkTheme`) to the giscus iframe.
+    - On iframe load (and whenever PaperMod flips `<html data-theme>`), we
+      postMessage the matching theme (`lightTheme` or `darkTheme`) to the
+      giscus iframe.
 */ -}}
 {{- with .Site.Params.giscus -}}
 {{- if and .repoID .categoryID -}}
@@ -33,8 +34,9 @@
     const LIGHT = {{ default "light" .lightTheme | jsonify }};
     const DARK  = {{ default "dark"  .darkTheme  | jsonify }};
 
+    const root = document.documentElement;
     const currentTheme = () =>
-      document.body.classList.contains('dark') ? DARK : LIGHT;
+      root.dataset.theme === 'dark' ? DARK : LIGHT;
 
     const sendTheme = () => {
       const iframe = document.querySelector('iframe.giscus-frame');
@@ -45,10 +47,10 @@
       );
     };
 
-    // PaperMod toggles `dark` on <body>; re-sync whenever that class changes.
-    new MutationObserver(sendTheme).observe(document.body, {
+    // PaperMod toggles <html data-theme="dark|light">; re-sync on changes.
+    new MutationObserver(sendTheme).observe(root, {
       attributes: true,
-      attributeFilter: ['class'],
+      attributeFilter: ['data-theme'],
     });
 
     // Initial sync once the giscus iframe finishes loading the discussion.
