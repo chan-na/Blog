@@ -4,7 +4,7 @@
 **모든 글은 한국어와 영어 두 버전으로 한 쌍으로 발행한다.**
 
 - **사이트**: https://chan-na.github.io/Blog/ (한국어) / https://chan-na.github.io/Blog/en/ (English)
-- **글쓰기**: `content/posts/` 와 `content/en/posts/` 에 같은 파일명으로 두 파일 추가 → `main` push → GitHub Actions가 자동 빌드/배포
+- **글쓰기**: `content/posts/` 에 `<slug>.md` + `<slug>.en.md` 한 쌍을 추가 → `main` push → GitHub Actions가 자동 빌드/배포
 
 ---
 
@@ -12,11 +12,11 @@
 
 ### 1. 새 글 한 쌍 만들기
 
-같은 슬러그/파일명을 가진 두 파일을 만든다.
+같은 베이스 이름을 공유하는 두 파일을 만든다 (Hugo가 `.en.md` 접미사를 자동으로 영어 버전으로 인식).
 
 ```text
-content/posts/<slug>.md          # 한국어 → /posts/<slug>/
-content/en/posts/<slug>.md       # English → /en/posts/<slug>/
+content/posts/<slug>.md          # 한국어 (기본) → /posts/<slug>/
+content/posts/<slug>.en.md       # 영어          → /en/posts/<slug>/
 ```
 
 #### 한국어 파일
@@ -65,7 +65,7 @@ Body...
 ### 3. 푸시
 
 ```bash
-git add content/posts/my-post.md content/en/posts/my-post.md
+git add content/posts/my-post.md content/posts/my-post.en.md
 git commit -m "post: my post"
 git push
 ```
@@ -136,10 +136,9 @@ git submodule update --init --recursive
 .
 ├── hugo.toml                     # 사이트 설정 (i18n, 메뉴, 테마 옵션)
 ├── content/
-│   ├── posts/                    # 한국어 글
-│   │   └── blog-start.md
-│   └── en/posts/                 # 영어 글 (같은 파일명)
-│       └── blog-start.md
+│   └── posts/
+│       ├── blog-start.md         # 한국어 (기본)
+│       └── blog-start.en.md      # 영어 (.en.md 접미사)
 ├── layouts/
 │   └── partials/
 │       └── comments.html         # Giscus 통합
@@ -155,11 +154,12 @@ git submodule update --init --recursive
 ## 유용한 Hugo 명령어
 
 ```bash
-# 새 글 한국어 버전 (한 쌍이니까 영어 버전도 만들어야 함)
+# 새 글 한국어 버전
 hugo new posts/my-new-post.md
 
-# 영어 버전
-hugo new --kind default posts/my-new-post.md --content-dir content/en
+# 영어 버전은 같은 이름에 .en.md 접미사로 직접 생성하거나 ko 파일을 복사해서 작성
+cp content/posts/my-new-post.md content/posts/my-new-post.en.md
+# 이후 .en.md 파일의 front matter (title/summary 등)와 본문만 영어로 수정
 
 # 로컬 빌드 (public/ 에 결과)
 hugo --gc --minify

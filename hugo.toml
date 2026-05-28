@@ -65,7 +65,6 @@ enableGitInfo = false
     languageCode = "en-US"
     weight = 2
     title = "chan-na's Blog"
-    contentDir = "content/en"
 
     [languages.en.params]
       description = "A tech blog by chan-na — notes on engineering, learning, and life."
