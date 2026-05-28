@@ -31,8 +31,8 @@
 
 <script>
   (function () {
-    const LIGHT = {{ default "light" .lightTheme | jsonify }};
-    const DARK  = {{ default "dark"  .darkTheme  | jsonify }};
+    const LIGHT = '{{ default "light" .lightTheme }}';
+    const DARK  = '{{ default "dark"  .darkTheme  }}';
 
     const root = document.documentElement;
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
