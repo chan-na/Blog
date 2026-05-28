@@ -1,0 +1,64 @@
+{{- /*
+  Giscus comments + theme sync with PaperMod's light/dark toggle.
+
+  Settings come from `hugo.toml [params.giscus]`. The script renders only
+  when both repoID and categoryID are set.
+
+  Theme sync behavior:
+    - giscus loads with `lightTheme` initially.
+    - On iframe load (and whenever PaperMod toggles `body.dark`), we postMessage
+      the matching theme (`lightTheme` or `darkTheme`) to the giscus iframe.
+*/ -}}
+{{- with .Site.Params.giscus -}}
+{{- if and .repoID .categoryID -}}
+<script src="https://giscus.app/client.js"
+        data-repo="{{ .repo }}"
+        data-repo-id="{{ .repoID }}"
+        data-category="{{ .category }}"
+        data-category-id="{{ .categoryID }}"
+        data-mapping="{{ default "pathname" .mapping }}"
+        data-strict="{{ default "0" .strict }}"
+        data-reactions-enabled="{{ default "1" .reactionsEnabled }}"
+        data-emit-metadata="{{ default "0" .emitMetadata }}"
+        data-input-position="{{ default "bottom" .inputPosition }}"
+        data-theme="{{ default "light" .lightTheme }}"
+        data-lang="{{ default $.Site.Language.Lang .lang }}"
+        data-loading="{{ default "lazy" .loading }}"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script>
+  (function () {
+    const LIGHT = {{ default "light" .lightTheme | jsonify }};
+    const DARK  = {{ default "dark"  .darkTheme  | jsonify }};
+
+    const currentTheme = () =>
+      document.body.classList.contains('dark') ? DARK : LIGHT;
+
+    const sendTheme = () => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (!iframe || !iframe.contentWindow) return;
+      iframe.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: currentTheme() } } },
+        'https://giscus.app'
+      );
+    };
+
+    // PaperMod toggles `dark` on <body>; re-sync whenever that class changes.
+    new MutationObserver(sendTheme).observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    // Initial sync once the giscus iframe finishes loading the discussion.
+    window.addEventListener('message', (e) => {
+      if (e.origin !== 'https://giscus.app') return;
+      if (e.data && e.data.giscus && e.data.giscus.discussion) sendTheme();
+    });
+  })();
+</script>
+{{- else -}}
+<!-- Giscus is not configured. Fill in `params.giscus.repoID` and `categoryID` in hugo.toml. -->
+{{- end -}}
+{{- end -}}
