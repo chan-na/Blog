@@ -35,8 +35,18 @@
     const DARK  = {{ default "dark"  .darkTheme  | jsonify }};
 
     const root = document.documentElement;
-    const currentTheme = () =>
-      root.dataset.theme === 'dark' ? DARK : LIGHT;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // PaperMod sets `data-theme` to 'dark' | 'light' | 'auto'.
+    // 'auto' means "follow OS", so we read prefers-color-scheme as fallback.
+    const isDark = () => {
+      const t = root.dataset.theme;
+      if (t === 'dark') return true;
+      if (t === 'light') return false;
+      return prefersDark.matches;
+    };
+
+    const currentTheme = () => (isDark() ? DARK : LIGHT);
 
     const sendTheme = () => {
       const iframe = document.querySelector('iframe.giscus-frame');
@@ -47,16 +57,18 @@
       );
     };
 
-    // PaperMod toggles <html data-theme="dark|light">; re-sync on changes.
+    // 1. PaperMod toggle flips <html data-theme>.
     new MutationObserver(sendTheme).observe(root, {
       attributes: true,
       attributeFilter: ['data-theme'],
     });
 
-    // Initial sync once the giscus iframe finishes loading the discussion.
+    // 2. OS theme change matters when data-theme="auto".
+    prefersDark.addEventListener('change', sendTheme);
+
+    // 3. Re-sync whenever giscus posts (covers iframe-ready and resizes).
     window.addEventListener('message', (e) => {
-      if (e.origin !== 'https://giscus.app') return;
-      if (e.data && e.data.giscus && e.data.giscus.discussion) sendTheme();
+      if (e.origin === 'https://giscus.app') sendTheme();
     });
   })();
 </script>
