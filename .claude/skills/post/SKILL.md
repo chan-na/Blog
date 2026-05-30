@@ -32,7 +32,7 @@ If `content/posts/<slug>.md` or `content/posts/<slug>.en.md` already exists, **s
 - `summary`: one Korean sentence that would appear on the post listing card.
 - `tags`: 2–5 short Korean tags (e.g. `["블로그", "시작"]`). Tech/tool keywords (framework names like `hugo`, `papermod`, `react`) stay lowercase English and can repeat across both files.
 - `categories`: 1–2 Korean categories. Mirror existing conventions where they apply (`메타`, `개발`, `블로그` — see existing posts).
-- `date`: today's date at 10:00 KST, formatted `YYYY-MM-DDT10:00:00+09:00`.
+- `date`: the actual current time in KST, formatted `YYYY-MM-DDT HH:MM:SS+09:00` (no space — `YYYY-MM-DDTHH:MM:SS+09:00`). Get it by running `TZ=Asia/Seoul date '+%Y-%m-%dT%H:%M:%S+09:00'` — do **not** hardcode a time. Using the real run time keeps multiple posts published on the same day sorted in publication order (Hugo sorts by `date`, and identical timestamps make the order ambiguous).
 - `translationKey`: same value as `slug`.
 - `draft`: `false`.
 
@@ -101,7 +101,7 @@ Print:
 ## Front matter reference (from existing posts)
 
 - All string values use double quotes.
-- `date` is local +09:00 (KST); default the time to `10:00:00`.
+- `date` is local +09:00 (KST); use the actual current run time (see step 4), not a fixed time.
 - `translationKey` and `slug` are identical between the `.md` and `.en.md` files.
 - Hugo + PaperMod treats `<slug>.en.md` as the English translation of `<slug>.md` automatically — no other wiring needed.
 
@@ -121,4 +121,4 @@ Tech-keyword tags (lowercase, identical in both files): `hugo`, `papermod`, `git
 - Never overwrite an existing file in `content/posts/`. Ask first.
 - Never modify the input draft file. Read-only.
 - Never auto-commit or push.
-- Do not invent dates other than today. The current date comes from the harness context.
+- Do not invent the date/time. Get the real current KST timestamp at run time via `TZ=Asia/Seoul date '+%Y-%m-%dT%H:%M:%S+09:00'`.
