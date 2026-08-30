@@ -22,8 +22,8 @@ enableGitInfo = false
 
 [languages]
   [languages.ko]
-    languageName = "한국어"
-    languageCode = "ko-KR"
+    label = "한국어"
+    locale = "ko-KR"
     weight = 1
     title = "chan-na's Blog"
 
@@ -55,8 +55,8 @@ enableGitInfo = false
       weight = 30
 
   [languages.en]
-    languageName = "English"
-    languageCode = "en-US"
+    label = "English"
+    locale = "en-US"
     weight = 2
     title = "chan-na's Blog"
 
