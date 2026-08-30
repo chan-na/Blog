@@ -1,0 +1,14 @@
+{{- /*
+  마크다운 링크 렌더 훅.
+
+  이미지 훅과 같은 이유로 루트 절대경로에 baseURL의 하위 경로(/Blog/)를 붙인다.
+  외부 링크(스킴 있음), 프로토콜 상대 URL(//), 앵커(#), mailto: 등은 그대로 둔다.
+  외부 링크에는 target/rel을 붙인다.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $external := strings.HasPrefix $dest "http" -}}
+{{- if and (hasPrefix $dest "/") (not (hasPrefix $dest "//")) -}}
+  {{- $dest = strings.TrimPrefix "/" $dest | relURL -}}
+{{- end -}}
+<a href="{{ $dest }}"{{ with .Title }} title="{{ . }}"{{ end }}
+   {{- if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text }}</a>

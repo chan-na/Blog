@@ -1,0 +1,21 @@
+{{- /*
+  마크다운 이미지 렌더 훅.
+
+  baseURL이 하위 경로(https://chan-na.github.io/Blog/)를 쓰는데, Hugo의 relURL은
+  "/"로 시작하는 경로를 이미 루트 기준으로 보고 그 하위 경로를 붙이지 않는다.
+  앞 슬래시를 떼고 relURL을 태워야 /Blog/ 접두어가 붙는다.
+
+  프로토콜이 붙은 외부 URL과 //로 시작하는 프로토콜 상대 URL은 그대로 둔다.
+  alt 텍스트는 figcaption으로도 쓴다 (title이 있으면 title 우선).
+*/ -}}
+{{- $src := .Destination -}}
+{{- if and (hasPrefix $src "/") (not (hasPrefix $src "//")) -}}
+  {{- $src = strings.TrimPrefix "/" $src | relURL -}}
+{{- end -}}
+{{- $alt := .PlainText -}}
+<figure class="post-shot">
+  <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">
+  {{- with or .Title $alt }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>

@@ -1,0 +1,20 @@
+/* 본문 스크린샷: 마크다운 이미지 렌더 훅(layouts/_markup/render-image.html)이 내보내는 구조 */
+.post-content figure.post-shot {
+  margin: 0 0 var(--content-gap);
+}
+
+.post-content figure.post-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.post-content figure.post-shot figcaption {
+  margin-top: 0.5em;
+  font-size: 0.85em;
+  line-height: 1.5;
+  color: var(--secondary);
+  text-align: center;
+}
