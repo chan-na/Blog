@@ -6,7 +6,7 @@ slug: "how-domains-get-registered"
 translationKey: "how-domains-get-registered"
 categories: ["개발"]
 tags: ["dns", "domain", "네트워크", "입문"]
-summary: "도메인이 어떻게 내 것이 되고, 주소창에 친 이름이 어떻게 서버를 찾아가는지 — 그림 여덟 장으로 정리했다."
+summary: "도메인이 어떻게 내 것이 되고, 주소창에 친 이름이 어떻게 서버를 찾아가는지 — 그림 아홉 장으로 정리했다."
 ---
 
 <style>
@@ -82,7 +82,7 @@ summary: "도메인이 어떻게 내 것이 되고, 주소창에 친 이름이 �
   <figcaption><p>창구는 바꿀 수 있다. 장부에 적힌 도메인은 그대로 내 것으로 따라온다.</p></figcaption>
 </figure>
 
-## 등록은 다섯 걸음
+## 등록은 다섯 스텝
 
 실제로 창구에 앉아서 하는 일은 이게 전부다.
 
@@ -213,48 +213,115 @@ summary: "도메인이 어떻게 내 것이 되고, 주소창에 친 이름이 �
 
 ## 주소를 찾아가는 길
 
-등록이 끝난 뒤, 누군가 주소창에 이름을 치면 0.1초 사이에 이런 심부름이 일어난다.
+등록이 끝난 뒤, 누군가 주소창에 이름을 치면 0.1초 사이에 질문이 오간다. 단, 처음 한 번만이다.
+
+### 처음 물어볼 때
 
 <figure class="dgm">
   <div class="dgm-scroll">
-  <svg viewBox="0 0 720 540" role="img" aria-label="브라우저가 리졸버에 묻고 리졸버가 루트 서버와 닷컴 서버를 거쳐 권한 네임서버에서 IP를 받아 브라우저에 전달한다">
+  <svg viewBox="0 0 720 596" role="img" aria-label="브라우저가 리졸버에 묻고, 캐시가 비어 있어 리졸버가 루트 서버와 닷컴 서버를 거쳐 권한 네임서버에서 IP를 받아 브라우저에 전달하고 그 답을 캐시에 저장한다">
     <defs>
       <marker id="d8a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
       <marker id="d8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-accent)"/></marker>
-      <marker id="d8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--secondary)"/></marker>
+      <marker id="d8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-go)"/></marker>
     </defs>
-    <rect x="180" y="12" width="380" height="68" rx="10" fill="var(--dgm-accent)"/>
-    <text x="202" y="41" font-size="16.5" font-weight="700" fill="#fff">브라우저</text>
-    <text x="202" y="64" font-size="13" fill="rgba(255,255,255,.82)"><tspan class="m">mystore.com</tspan>&#160;열기</text>
-    <line x1="370" y1="80" x2="370" y2="116" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="102" font-size="12.5" fill="var(--secondary)">이 이름 어디야?</text>
-    <rect x="180" y="116" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="145" font-size="16.5" font-weight="700" fill="currentColor">리졸버 · 안내데스크</text>
-    <text x="202" y="168" font-size="13" fill="var(--secondary)">통신사나 공용 DNS가 대신 물어봄</text>
-    <path d="M180,134 C 140,128 140,172 174,170" fill="none" stroke="var(--secondary)" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#d8c)"/>
-    <text x="126" y="150" font-size="12" fill="var(--secondary)" text-anchor="middle" transform="rotate(-90 126 150)">한 번 찾으면 캐시</text>
-    <line x1="370" y1="184" x2="370" y2="220" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="206" font-size="12.5" fill="var(--secondary)">첫 번째 심부름</text>
-    <rect x="180" y="220" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="249" font-size="16.5" font-weight="700" fill="currentColor">루트 서버</text>
-    <text x="202" y="272" font-size="13" fill="var(--secondary)">".com 담당은 저쪽이야"</text>
-    <line x1="370" y1="288" x2="370" y2="324" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="310" font-size="12.5" fill="var(--secondary)">두 번째 심부름</text>
-    <rect x="180" y="324" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="353" font-size="16.5" font-weight="700" fill="currentColor">.com 서버 · 레지스트리</text>
-    <text x="202" y="376" font-size="13" fill="var(--secondary)">담당 네임서버는&#160;<tspan class="m">ns1.host.com</tspan></text>
-    <line x1="370" y1="392" x2="370" y2="428" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="414" font-size="12.5" fill="var(--secondary)">세 번째 심부름</text>
-    <rect x="180" y="428" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="457" font-size="16.5" font-weight="700" fill="currentColor">권한 네임서버</text>
-    <text x="202" y="480" font-size="13" fill="var(--secondary)">주소는&#160;<tspan class="m">203.0.113.42</tspan></text>
-    <path d="M180,470 L76,470 L76,46 L174,46" fill="none" stroke="var(--dgm-accent)" stroke-width="2" marker-end="url(#d8b)"/>
-    <text x="62" y="258" font-size="12.5" font-weight="700" fill="var(--dgm-accent)" text-anchor="middle" transform="rotate(-90 62 258)">찾은 IP를 돌려줌 → 접속</text>
-    <text x="180" y="524" font-size="13" fill="var(--secondary)">여기까지 보통 0.1초</text>
+    <rect x="190" y="14" width="330" height="66" rx="10" fill="var(--dgm-accent)"/>
+    <text x="212" y="43" font-size="16.5" font-weight="700" fill="#fff">브라우저</text>
+    <text x="212" y="66" font-size="13" fill="rgba(255,255,255,.82)"><tspan class="m">mystore.com</tspan>&#160;열기</text>
+    <line x1="355" y1="80" x2="355" y2="118" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="104" font-size="12.5" fill="var(--secondary)">이 이름 어디야?</text>
+    <rect x="190" y="118" width="330" height="94" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="147" font-size="16.5" font-weight="700" fill="currentColor">리졸버 · 안내데스크</text>
+    <text x="212" y="170" font-size="13" fill="var(--secondary)">통신사나 공용 DNS가 대신 물어봄</text>
+    <text x="212" y="192" font-size="13" fill="var(--secondary)">먼저 캐시부터 확인한다</text>
+    <line x1="520" y1="165" x2="538" y2="165" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <rect x="540" y="130" width="168" height="70" rx="10" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="560" y="159" font-size="14" font-weight="700" fill="var(--secondary)">캐시</text>
+    <text x="560" y="181" font-size="12.5" fill="var(--secondary)">지금은 비어 있음</text>
+    <line x1="355" y1="212" x2="355" y2="254" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="237" font-size="12.5" fill="var(--secondary)">첫 번째 질문</text>
+    <rect x="190" y="254" width="330" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="283" font-size="16.5" font-weight="700" fill="currentColor">루트 서버</text>
+    <text x="212" y="306" font-size="13" fill="var(--secondary)">".com 담당은 저쪽이야"</text>
+    <line x1="355" y1="322" x2="355" y2="364" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="347" font-size="12.5" fill="var(--secondary)">두 번째 질문</text>
+    <rect x="190" y="364" width="330" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="393" font-size="16.5" font-weight="700" fill="currentColor">.com 서버 · 레지스트리</text>
+    <text x="212" y="416" font-size="13" fill="var(--secondary)">담당 네임서버는&#160;<tspan class="m">ns1.host.com</tspan></text>
+    <line x1="355" y1="432" x2="355" y2="474" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="457" font-size="12.5" fill="var(--secondary)">세 번째 질문</text>
+    <rect x="190" y="474" width="330" height="72" rx="10" fill="var(--code-bg)" stroke="var(--dgm-go)" stroke-width="2"/>
+    <text x="212" y="503" font-size="16.5" font-weight="700" fill="currentColor">권한 네임서버</text>
+    <text x="212" y="526" font-size="13" fill="var(--secondary)">주소는&#160;<tspan class="m">203.0.113.42</tspan></text>
+    <path d="M190,516 L82,516 L82,48 L184,48" fill="none" stroke="var(--dgm-accent)" stroke-width="2" marker-end="url(#d8b)"/>
+    <text x="66" y="282" font-size="12.5" font-weight="700" fill="var(--dgm-accent)" text-anchor="middle" transform="rotate(-90 66 282)">찾은 IP를 돌려줌 → 접속</text>
+    <path d="M520,505 L628,505 L628,206" fill="none" stroke="var(--dgm-go)" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#d8c)"/>
+    <text x="650" y="356" font-size="12.5" font-weight="700" fill="var(--dgm-go)" text-anchor="middle" transform="rotate(-90 650 356)">이 답을 TTL 동안 캐시에 저장</text>
+    <text x="190" y="576" font-size="13" fill="var(--secondary)">여기까지 보통 0.1초. 이렇게 묻는 건 처음 한 번뿐이다.</text>
   </svg>
   </div>
-  <figcaption><p>한 번 찾은 답은 리졸버가 TTL만큼 기억해 둔다. 그래서 두 번째부터는 심부름 없이 바로 열린다.</p></figcaption>
+  <figcaption><p>루트와 .com 서버는 답을 모른다. "저쪽에 물어봐"라고 넘길 뿐이다. 실제 IP를 들고 있는 건 맨 아래 한 곳이고, 그 답은 돌아오는 길에 캐시에 담긴다.</p></figcaption>
 </figure>
+
+### 두 번째부터는 캐시
+
+<figure class="dgm">
+  <div class="dgm-scroll">
+  <svg viewBox="0 0 720 272" role="img" aria-label="두 번째 요청은 리졸버 캐시에 답이 남아 있어 루트 서버, 닷컴 서버, 권한 네임서버까지 가지 않고 곧바로 응답한다">
+    <defs>
+      <marker id="d9a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+      <marker id="d9b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-go)"/></marker>
+    </defs>
+    <rect x="20" y="48" width="180" height="104" rx="10" fill="var(--dgm-accent)"/>
+    <text x="110" y="92" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">브라우저</text>
+    <text class="m" x="110" y="117" font-size="13" fill="rgba(255,255,255,.82)" text-anchor="middle">mystore.com</text>
+    <line x1="208" y1="80" x2="462" y2="80" stroke="currentColor" stroke-width="2" marker-end="url(#d9a)"/>
+    <text x="335" y="68" font-size="12.5" fill="var(--secondary)" text-anchor="middle">이 이름 어디야?</text>
+    <line x1="462" y1="122" x2="208" y2="122" stroke="var(--dgm-go)" stroke-width="2" marker-end="url(#d9b)"/>
+    <text x="335" y="143" font-size="12.5" font-weight="700" fill="var(--dgm-go)" text-anchor="middle">캐시에 있음 → 바로 응답</text>
+    <rect x="470" y="48" width="230" height="104" rx="10" fill="var(--code-bg)" stroke="var(--dgm-go)" stroke-width="2"/>
+    <text x="585" y="82" font-size="16" font-weight="700" fill="currentColor" text-anchor="middle">리졸버</text>
+    <text x="585" y="105" font-size="12.5" fill="var(--secondary)" text-anchor="middle">캐시에 답이 남아 있음</text>
+    <text class="m" x="585" y="130" font-size="14" fill="var(--dgm-go)" text-anchor="middle">203.0.113.42</text>
+    <text x="20" y="207" font-size="12.5" font-weight="700" fill="var(--secondary)">이번엔 여기까지 안 감</text>
+    <rect x="190" y="182" width="150" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="265" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">루트 서버</text>
+    <rect x="350" y="182" width="150" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="425" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">.com 서버</text>
+    <rect x="510" y="182" width="190" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="605" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">권한 네임서버</text>
+    <text x="20" y="254" font-size="13" fill="var(--secondary)">TTL이 끝나면 캐시에서 지워지고, 그다음 요청은 다시 처음처럼 세 번을 묻는다.</text>
+  </svg>
+  </div>
+  <figcaption><p>질문 0회. 실제 인터넷 트래픽은 대부분 이쪽이다. 도메인 설정을 바꿔도 바로 안 보이는 이유이기도 하다.</p></figcaption>
+</figure>
+
+### 권한 네임서버가 하는 일
+
+영어로는 **authoritative nameserver**다. "이 이름에 대한 답을 확정적으로 가진 서버"라는 뜻이고, 앞의 두 서버와 결정적으로 다른 점이 그거다.
+
+루트 서버와 .com 서버는 `mystore.com`의 IP를 모른다. 각각 ".com은 저쪽", "그 도메인은 `ns1.host.com`이 안다"라고 **넘겨줄 뿐이다**. 실제 레코드를 보관하고 최종 답을 내놓는 건 맨 아래 한 곳이다. 5단계에서 NS로 지정한 바로 그 서버이고, 보통 창구나 호스팅 업체(또는 Cloudflare 같은 DNS 서비스)가 대신 운영해 준다.
+
+여기 들어 있는 게 도메인 관리 화면에서 우리가 만지는 그 레코드들이다.
+
+- `A` / `AAAA` — 이 이름의 IP 주소 (IPv4 / IPv6)
+- `CNAME` — "이 이름은 저 이름과 같다"
+- `MX` — 이 도메인으로 오는 메일을 받을 서버
+- `TXT` — 소유 확인, 메일 인증(SPF·DKIM) 같은 메모
+
+엄밀히 말하면 루트 서버도 루트 존(zone)의 권한 네임서버이고, .com 서버도 .com 존의 권한 네임서버다. 각자 자기 층의 답에는 권한이 있다. 다만 우리가 찾는 이름의 최종 답을 가진 건 맨 아래 한 곳이라, 보통 그쪽을 가리켜 부른다.
+
+리졸버가 캐시에서 꺼내 주는 답은 원본이 아니라 사본이다. `dig`로 조회하면 응답 헤더의 `aa`(authoritative answer) 플래그로 구분된다.
+
+```
+$ dig mystore.com                   # 리졸버에게 묻기
+;; flags: qr rd ra;                 ← aa 없음 = 캐시에서 온 사본
+
+$ dig @ns1.host.com mystore.com     # 권한 네임서버에 직접 묻기
+;; flags: qr aa rd;                 ← aa 있음 = 원본
+```
+
+레코드를 고칠 때 실제로 바뀌는 곳도 여기다. 원본은 즉시 바뀌지만 전 세계 리졸버 캐시에는 옛날 답이 TTL만큼 남아 있다. 바꾼 게 바로 안 보이는 이유가 이것이고, 그래서 서버 이사가 예정돼 있으면 며칠 전에 TTL을 300초쯤으로 줄여 두는 게 요령이다.
 
 ## 이것만은 기억하기
 
@@ -263,6 +330,16 @@ summary: "도메인이 어떻게 내 것이 되고, 주소창에 친 이름이 �
 - **사는 게 아니라 빌리는 것이다.** 등록은 소유권이 아니라 사용권이다. 갱신을 멈추는 순간 남이 가져갈 수 있다.
 - **자동 갱신을 켜 둔다.** 만료 뒤 약 30일 유예, 그다음엔 비싼 복구비, 그다음엔 삭제되어 시장에 풀린다. 만료일 알림은 등록 당일에 걸어두는 게 좋다.
 - **내 정보는 가릴 수 있다.** 등록자 이름·주소·전화는 WHOIS에 공개된다. 대부분의 창구가 개인정보 보호를 무료로 제공한다.
+
+## 실전편
+
+여기까지가 개념이다. 실제로 `byeorim.com`을 사서 페이지를 붙여보니 **순서가 달랐고, 이 그림들에 없던 것들이 나왔다.**
+
+- **"그런 주소 없다"는 답도 캐시에 남는다.** 설정을 끝내기 전에 궁금해서 한 번 조회하면, 그 "없음"이 내 리졸버에 30분쯤 박힌다. "분명 설정했는데 왜 안 되지"의 가장 흔한 정체다.
+- **apex 도메인(`byeorim.com`처럼 서브도메인 없는 루트)에는 CNAME을 달 수 없다.** 그래서 GitHub Pages는 고정 IP 네 개를 직접 박으라고 안내한다.
+- **포함이라던 DNSSEC이 꺼져 있었다.**
+
+→ [「도메인 사서 웹페이지 붙이기, 실제로 해봤다」](/posts/buying-a-domain-in-practice/) — 1시간 반, 연 $10.46짜리 기록.
 
 ---
 

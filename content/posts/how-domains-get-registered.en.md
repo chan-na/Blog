@@ -6,7 +6,7 @@ slug: "how-domains-get-registered"
 translationKey: "how-domains-get-registered"
 categories: ["Engineering"]
 tags: ["dns", "domain", "networking", "intro"]
-summary: "How a domain becomes yours, and how the name you type in the address bar finds a server — in eight pictures."
+summary: "How a domain becomes yours, and how the name you type in the address bar finds a server — in nine pictures."
 ---
 
 <style>
@@ -213,48 +213,115 @@ This is where you write "my server is over here" on the sign. Skip it and you ow
 
 ## How the address gets found
 
-Once registration is done and someone types the name, this errand runs in about a tenth of a second.
+Once registration is done and someone types the name, a few queries fly back and forth in about a tenth of a second. Only the first time, though.
+
+### The first time
 
 <figure class="dgm">
   <div class="dgm-scroll">
-  <svg viewBox="0 0 720 540" role="img" aria-label="The browser asks a resolver, which walks the root server and the .com server to the authoritative nameserver and returns the IP to the browser">
+  <svg viewBox="0 0 720 596" role="img" aria-label="The browser asks a resolver whose cache is empty, so it walks the root server and the .com server to the authoritative nameserver, returns the IP to the browser, and stores that answer in its cache">
     <defs>
       <marker id="d8a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
       <marker id="d8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-accent)"/></marker>
-      <marker id="d8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--secondary)"/></marker>
+      <marker id="d8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-go)"/></marker>
     </defs>
-    <rect x="180" y="12" width="380" height="68" rx="10" fill="var(--dgm-accent)"/>
-    <text x="202" y="41" font-size="16.5" font-weight="700" fill="#fff">Browser</text>
-    <text x="202" y="64" font-size="13" fill="rgba(255,255,255,.82)">opening&#160;<tspan class="m">mystore.com</tspan></text>
-    <line x1="370" y1="80" x2="370" y2="116" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="102" font-size="12.5" fill="var(--secondary)">where is this name?</text>
-    <rect x="180" y="116" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="145" font-size="16.5" font-weight="700" fill="currentColor">Resolver · the help desk</text>
-    <text x="202" y="168" font-size="13" fill="var(--secondary)">your ISP or a public DNS asks for you</text>
-    <path d="M180,134 C 140,128 140,172 174,170" fill="none" stroke="var(--secondary)" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#d8c)"/>
-    <text x="126" y="150" font-size="12" fill="var(--secondary)" text-anchor="middle" transform="rotate(-90 126 150)">cached once found</text>
-    <line x1="370" y1="184" x2="370" y2="220" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="206" font-size="12.5" fill="var(--secondary)">errand 1</text>
-    <rect x="180" y="220" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="249" font-size="16.5" font-weight="700" fill="currentColor">Root server</text>
-    <text x="202" y="272" font-size="13" fill="var(--secondary)">".com is handled over there"</text>
-    <line x1="370" y1="288" x2="370" y2="324" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="310" font-size="12.5" fill="var(--secondary)">errand 2</text>
-    <rect x="180" y="324" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="353" font-size="16.5" font-weight="700" fill="currentColor">.com server · the registry</text>
-    <text x="202" y="376" font-size="13" fill="var(--secondary)">nameserver is&#160;<tspan class="m">ns1.host.com</tspan></text>
-    <line x1="370" y1="392" x2="370" y2="428" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
-    <text x="576" y="414" font-size="12.5" fill="var(--secondary)">errand 3</text>
-    <rect x="180" y="428" width="380" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
-    <text x="202" y="457" font-size="16.5" font-weight="700" fill="currentColor">Authoritative nameserver</text>
-    <text x="202" y="480" font-size="13" fill="var(--secondary)">the address is&#160;<tspan class="m">203.0.113.42</tspan></text>
-    <path d="M180,470 L76,470 L76,46 L174,46" fill="none" stroke="var(--dgm-accent)" stroke-width="2" marker-end="url(#d8b)"/>
-    <text x="62" y="258" font-size="12.5" font-weight="700" fill="var(--dgm-accent)" text-anchor="middle" transform="rotate(-90 62 258)">returns the IP → connect</text>
-    <text x="180" y="524" font-size="13" fill="var(--secondary)">usually under 0.1s</text>
+    <rect x="190" y="14" width="330" height="66" rx="10" fill="var(--dgm-accent)"/>
+    <text x="212" y="43" font-size="16.5" font-weight="700" fill="#fff">Browser</text>
+    <text x="212" y="66" font-size="13" fill="rgba(255,255,255,.82)">opening&#160;<tspan class="m">mystore.com</tspan></text>
+    <line x1="355" y1="80" x2="355" y2="118" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="104" font-size="12.5" fill="var(--secondary)">where is this name?</text>
+    <rect x="190" y="118" width="330" height="94" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="147" font-size="16.5" font-weight="700" fill="currentColor">Resolver · the help desk</text>
+    <text x="212" y="170" font-size="13" fill="var(--secondary)">your ISP or a public DNS asks for you</text>
+    <text x="212" y="192" font-size="13" fill="var(--secondary)">it checks its own cache first</text>
+    <line x1="520" y1="165" x2="538" y2="165" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <rect x="540" y="130" width="168" height="70" rx="10" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="560" y="159" font-size="14" font-weight="700" fill="var(--secondary)">Cache</text>
+    <text x="560" y="181" font-size="12.5" fill="var(--secondary)">empty right now</text>
+    <line x1="355" y1="212" x2="355" y2="254" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="237" font-size="12.5" fill="var(--secondary)">query 1</text>
+    <rect x="190" y="254" width="330" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="283" font-size="16.5" font-weight="700" fill="currentColor">Root server</text>
+    <text x="212" y="306" font-size="13" fill="var(--secondary)">".com is handled over there"</text>
+    <line x1="355" y1="322" x2="355" y2="364" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="347" font-size="12.5" fill="var(--secondary)">query 2</text>
+    <rect x="190" y="364" width="330" height="68" rx="10" fill="var(--code-bg)" stroke="var(--tertiary)" stroke-width="1.5"/>
+    <text x="212" y="393" font-size="16.5" font-weight="700" fill="currentColor">.com server · the registry</text>
+    <text x="212" y="416" font-size="13" fill="var(--secondary)">nameserver is&#160;<tspan class="m">ns1.host.com</tspan></text>
+    <line x1="355" y1="432" x2="355" y2="474" stroke="currentColor" stroke-width="2" marker-end="url(#d8a)"/>
+    <text x="370" y="457" font-size="12.5" fill="var(--secondary)">query 3</text>
+    <rect x="190" y="474" width="330" height="72" rx="10" fill="var(--code-bg)" stroke="var(--dgm-go)" stroke-width="2"/>
+    <text x="212" y="503" font-size="16.5" font-weight="700" fill="currentColor">Authoritative nameserver</text>
+    <text x="212" y="526" font-size="13" fill="var(--secondary)">the address is&#160;<tspan class="m">203.0.113.42</tspan></text>
+    <path d="M190,516 L82,516 L82,48 L184,48" fill="none" stroke="var(--dgm-accent)" stroke-width="2" marker-end="url(#d8b)"/>
+    <text x="66" y="282" font-size="12.5" font-weight="700" fill="var(--dgm-accent)" text-anchor="middle" transform="rotate(-90 66 282)">returns the IP → connect</text>
+    <path d="M520,505 L628,505 L628,206" fill="none" stroke="var(--dgm-go)" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#d8c)"/>
+    <text x="650" y="356" font-size="12.5" font-weight="700" fill="var(--dgm-go)" text-anchor="middle" transform="rotate(-90 650 356)">stores the answer for the TTL</text>
+    <text x="190" y="576" font-size="13" fill="var(--secondary)">usually under 0.1s — and these queries happen only once.</text>
   </svg>
   </div>
-  <figcaption><p>The resolver keeps the answer for as long as the TTL says. That is why the second visit skips the errands entirely.</p></figcaption>
+  <figcaption><p>The root and .com servers do not know the answer. They only say "ask over there." One server at the bottom holds the real IP, and that answer lands in the cache on the way back.</p></figcaption>
 </figure>
+
+### After that, the cache answers
+
+<figure class="dgm">
+  <div class="dgm-scroll">
+  <svg viewBox="0 0 720 272" role="img" aria-label="The second request is answered straight from the resolver cache without visiting the root server, the .com server, or the authoritative nameserver">
+    <defs>
+      <marker id="d9a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+      <marker id="d9b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--dgm-go)"/></marker>
+    </defs>
+    <rect x="20" y="48" width="180" height="104" rx="10" fill="var(--dgm-accent)"/>
+    <text x="110" y="92" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">Browser</text>
+    <text class="m" x="110" y="117" font-size="13" fill="rgba(255,255,255,.82)" text-anchor="middle">mystore.com</text>
+    <line x1="208" y1="80" x2="462" y2="80" stroke="currentColor" stroke-width="2" marker-end="url(#d9a)"/>
+    <text x="335" y="68" font-size="12.5" fill="var(--secondary)" text-anchor="middle">where is this name?</text>
+    <line x1="462" y1="122" x2="208" y2="122" stroke="var(--dgm-go)" stroke-width="2" marker-end="url(#d9b)"/>
+    <text x="335" y="143" font-size="12.5" font-weight="700" fill="var(--dgm-go)" text-anchor="middle">in cache → answered at once</text>
+    <rect x="470" y="48" width="230" height="104" rx="10" fill="var(--code-bg)" stroke="var(--dgm-go)" stroke-width="2"/>
+    <text x="585" y="82" font-size="16" font-weight="700" fill="currentColor" text-anchor="middle">Resolver</text>
+    <text x="585" y="105" font-size="12.5" fill="var(--secondary)" text-anchor="middle">the answer is still cached</text>
+    <text class="m" x="585" y="130" font-size="14" fill="var(--dgm-go)" text-anchor="middle">203.0.113.42</text>
+    <text x="20" y="207" font-size="12.5" font-weight="700" fill="var(--secondary)">not visited this time</text>
+    <rect x="190" y="182" width="150" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="265" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">Root server</text>
+    <rect x="350" y="182" width="150" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="425" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">.com server</text>
+    <rect x="510" y="182" width="190" height="40" rx="8" fill="none" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="605" y="207" font-size="13" fill="var(--secondary)" text-anchor="middle">Authoritative NS</text>
+    <text x="20" y="254" font-size="13" fill="var(--secondary)">When the TTL runs out the entry is dropped, and the next request asks all three again.</text>
+  </svg>
+  </div>
+  <figcaption><p>Zero queries. Most real traffic looks like this — which is also why a DNS change does not show up right away.</p></figcaption>
+</figure>
+
+### What the authoritative nameserver actually does
+
+The name says it: it is the server that holds the **authoritative** answer for this name. That is what separates it from the two servers above it.
+
+The root server and the .com server do not know the IP of `mystore.com`. They only **hand you off** — ".com is over there," "that domain is known by `ns1.host.com`." One server at the bottom actually stores the records and produces the final answer. It is the server you pointed the NS records at back in step 5, and it is usually run for you by the registrar, the hosting provider, or a DNS service like Cloudflare.
+
+What it holds is exactly the set of records you edit in a domain control panel.
+
+- `A` / `AAAA` — the IP address for this name (IPv4 / IPv6)
+- `CNAME` — "this name is the same as that name"
+- `MX` — the server that receives mail for this domain
+- `TXT` — notes such as ownership proofs and mail authentication (SPF, DKIM)
+
+Strictly speaking, the root server is the authoritative nameserver for the root zone, and the .com server is the authoritative nameserver for the .com zone. Each one is authoritative for its own layer. But the final answer for the name you asked about lives in exactly one place at the bottom, and that is the one people usually mean.
+
+What a resolver hands you out of its cache is a copy, not the original. With `dig` you can tell them apart by the `aa` (authoritative answer) flag in the response header.
+
+```
+$ dig mystore.com                   # asking the resolver
+;; flags: qr rd ra;                 ← no aa = a copy from the cache
+
+$ dig @ns1.host.com mystore.com     # asking the authoritative nameserver directly
+;; flags: qr aa rd;                 ← aa = the original
+```
+
+This is also the place that actually changes when you edit a record. The original flips immediately, but resolver caches around the world keep the old answer for as long as the TTL says. That is why an edit is not visible right away — and why, when a server move is coming, the trick is to drop the TTL to something like 300 seconds a few days ahead.
 
 ## Three things worth remembering
 
@@ -263,6 +330,16 @@ Registration itself rarely goes wrong. These three do.
 - **You rent it, you don't own it.** Registration grants a right to use, not ownership. Stop renewing and someone else can take it.
 - **Turn on auto-renew.** Roughly 30 days of grace after expiry, then a steep redemption fee, then deletion back onto the market. Set the expiry reminder the day you register.
 - **You can hide your details.** The registrant's name, address, and phone go into WHOIS. Most registrars offer privacy protection for free.
+
+## The practical follow-up
+
+That is the concept. Actually buying `byeorim.com` and wiring a page to it, **the order turned out different and things showed up that none of these diagrams mention.**
+
+- **"No such address" gets cached too.** Look the domain up before you have finished setting it up, and that "no" sits in your resolver for about half an hour. It is the most common cause of "I definitely configured this, so why isn't it working."
+- **An apex domain (`byeorim.com` — the root, with no subdomain) cannot have a CNAME.** That is why GitHub Pages tells you to hard-code four fixed IPs.
+- **DNSSEC was listed as included, and was switched off.**
+
+→ [Buying a Domain and Wiring Up a Page, For Real](/en/posts/buying-a-domain-in-practice/) — ninety minutes and $10.46 a year, written down.
 
 ---
 

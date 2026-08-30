@@ -6,7 +6,7 @@ slug: "buying-a-domain-in-practice"
 translationKey: "buying-a-domain-in-practice"
 categories: ["Engineering"]
 tags: ["dns", "domain", "cloudflare", "workers", "networking"]
-summary: "Ninety minutes from buying byeorim.com to serving it from Cloudflare Workers — and everything the diagrams left out: a cached 'no', the CNAME rule at the apex, and a DNSSEC that was included but switched off."
+summary: "Ninety minutes from buying byeorim.com to serving it from Cloudflare Workers — and everything the diagrams left out: a 'no such record' answer that gets cached too, the CNAME rule at the apex, and a DNSSEC that was included but switched off."
 ---
 
 In [How a Domain Gets Registered, in Pictures](/en/posts/how-domains-get-registered/) I laid the process out in five steps. Pick a domain, check that it's free, pay a year up front at the counter, verify your email, point it at your server.

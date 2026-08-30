@@ -6,10 +6,10 @@ slug: "buying-a-domain-in-practice"
 translationKey: "buying-a-domain-in-practice"
 categories: ["개발"]
 tags: ["dns", "domain", "cloudflare", "workers", "네트워크"]
-summary: "byeorim.com을 사서 Cloudflare Workers에 붙이기까지 1시간 반. 개념편 그림에는 없던 것들 — 캐싱되는 '없음', apex의 CNAME 제약, 포함이라더니 꺼져 있던 DNSSEC — 을 실제로 만난 기록."
+summary: "byeorim.com을 사서 Cloudflare Workers에 붙이기까지 1시간 반. 개념편 그림에는 없던 것들 — 없다는 답까지 캐싱된다는 것, apex의 CNAME 제약, 포함이라더니 꺼져 있던 DNSSEC — 을 실제로 만난 기록."
 ---
 
-지난 글 [「도메인 등록, 그림으로 이해하기」](/posts/how-domains-get-registered/)에서 등록 절차를 다섯 걸음으로 정리했다. 도메인을 고르고, 비어 있는지 확인하고, 창구에서 1년치를 내고, 이메일을 인증하고, 내 서버를 연결한다.
+지난 글 [「도메인 등록, 그림으로 이해하기」](/posts/how-domains-get-registered/)에서 등록 절차를 다섯 스텝으로 정리했다. 도메인을 고르고, 비어 있는지 확인하고, 창구에서 1년치를 내고, 이메일을 인증하고, 내 서버를 연결한다.
 
 그림은 맞았다. 그런데 실제로 `byeorim.com`을 사서 페이지를 붙여보니 **순서가 달랐고, 그림에 없던 것들이 나왔다.** 걸린 시간은 1시간 반, 비용은 연 $10.46.
 
@@ -191,7 +191,7 @@ Registrant Phone:          +1.4153197517    ← 다른 번호로 치환된다
 
 ## 사이트가 도메인보다 먼저 살았다
 
-개념편에서 "내 서버를 연결한다"는 **마지막** 걸음이었다. 실제로는 순서를 지킬 필요가 없었다.
+개념편에서 "내 서버를 연결한다"는 **마지막** 스텝이었다. 실제로는 순서를 지킬 필요가 없었다.
 
 결제를 기다리는 동안 랜딩페이지를 먼저 배포했다. 그전에 어디에 올릴지부터 정해야 했다. 후보는 셋이었다.
 
