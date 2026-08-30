@@ -10,3 +10,6 @@
 
 # Node (if added later for tailwind/etc.)
 node_modules/
+
+# Claude Code local overrides
+.claude/settings.local.json
