@@ -270,6 +270,8 @@ X509v3 Subject Alternative Name:
 
 The issuer isn't Cloudflare, it's Google Trust Services. Cloudflare isn't a CA — it's a broker that pulls certificates from several CAs and installs them for you. And it's a **wildcard**, so this one certificate covers every Worker on the account. The 90 seconds I waited was the price of this account's first deploy.
 
+Who issues that certificate, and why does the browser believe them? The CA, the signature, and the chain of trust I skated past in one line here are unfolded in [Certificates and CAs, in Pictures](/en/posts/certificates-and-cas/).
+
 ## You can't put a CNAME on the apex
 
 Now to attach the domain. Three more lines in the same Cloudflare Workers config file, `wrangler.jsonc`:
@@ -498,3 +500,5 @@ The three warnings from the concept post, rewritten from the perspective of havi
 - **You can hide your details — but not all of them.** Name, address, and email are redacted; state and country stay.
 
 I'd add one more: **don't trust the defaults, go look.** DNSSEC said "included" and was off. Forced HTTPS was off. A few lines of `dig` and `curl` will tell you.
+
+→ [Certificates and CAs, in Pictures](/en/posts/certificates-and-cas/) — how many hands it passes through before a padlock appears in the address bar.

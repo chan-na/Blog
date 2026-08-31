@@ -270,6 +270,8 @@ X509v3 Subject Alternative Name:
 
 발급자가 Cloudflare가 아니라 Google Trust Services다. Cloudflare는 CA가 아니라 여러 CA에서 인증서를 받아다 자동으로 깔아주는 중개자다. 그리고 **와일드카드**라서 이 계정의 모든 Worker가 이 한 장으로 커버된다. 우리가 기다린 1분 30초는 이 계정의 첫 배포라서 치른 값이다.
 
+인증서는 누가 발급하고, 브라우저는 그걸 왜 믿나. 여기서 한 줄로 지나간 CA·서명·신뢰 사슬은 [「인증서와 CA, 그림으로 이해하기」](/posts/certificates-and-cas/)에서 그림으로 폈다.
+
 ## apex에는 CNAME을 못 다는데
 
 이제 도메인을 붙인다. 앞에서 본 Cloudflare Workers 설정 파일 `wrangler.jsonc` 에 세 줄을 더했다.
@@ -498,3 +500,5 @@ https://byeorim.com/ 200
 - **내 정보는 가릴 수 있다. 단, 전부는 아니다.** 이름·주소·이메일은 가려지지만 시/도와 국가는 남는다.
 
 여기에 하나 더 붙이자면, **기본값을 믿지 말고 직접 조회해봐야 한다.** "포함"이라고 적힌 DNSSEC은 꺼져 있었고, HTTPS 강제도 꺼져 있었다. `dig`와 `curl` 몇 줄이면 확인된다.
+
+→ [「인증서와 CA, 그림으로 이해하기」](/posts/certificates-and-cas/) — 주소창에 자물쇠 하나가 뜨기까지 몇 명의 손을 거치나.
