@@ -1,0 +1,8 @@
+# Labels used only by the post-to-post navigation.
+# The theme's prev_page/next_page are shared with list pagination, so they stay
+# untouched and these keys cover post navigation. See layouts/_partials/post_nav_links.html.
+- id: newer_post
+  translation: "Newer post"
+
+- id: older_post
+  translation: "Older post"

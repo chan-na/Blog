@@ -1,0 +1,22 @@
+{{- /*
+  PaperMod's version labels these links "prev_page"/"next_page", which reads as a
+  time direction in Korean and points the opposite way: the list runs newest-first,
+  so the "next" page is the older post. Same links, unambiguous labels.
+*/ -}}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="paginav">
+  {{- with $pages.Next . }}
+  <a class="prev" href="{{ .Permalink }}">
+    <span class="title">« {{ i18n "newer_post" }}</span>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+  {{- with $pages.Prev . }}
+  <a class="next" href="{{ .Permalink }}">
+    <span class="title">{{ i18n "older_post" }} »</span>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}

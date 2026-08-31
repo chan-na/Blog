@@ -1,0 +1,8 @@
+# 글 하단 내비게이션 전용 라벨.
+# 테마의 prev_page/next_page는 목록 페이지네이션과 공유하므로 건드리지 않고,
+# 글 사이 이동에만 쓰는 키를 따로 둔다. layouts/_partials/post_nav_links.html 참고.
+- id: newer_post
+  translation: "최신 글"
+
+- id: older_post
+  translation: "지난 글"
